@@ -44,9 +44,6 @@ public class PlayerCollision : MonoBehaviour
         }
         return false;
     } 
-    //public bool CheckLedges()
-    //{
-       
-    //}
+    
 
 }

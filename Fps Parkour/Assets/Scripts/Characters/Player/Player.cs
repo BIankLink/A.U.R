@@ -43,13 +43,16 @@ public class Player : MonoBehaviour
     [field:Header("Landing")]
     [field:SerializeField]public float MinimumDistanceToBeConsideredHardFall { get;private set; }
 
-
+    [field:Header("Parkour Actions")]
+    [SerializeField]public List<ParkourAction> ParkourActions { get; private set; }
+    [SerializeField]public bool InAction { get; set; }
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public InputManager InputManager { get; private set; }
     public PlayerCollision Collision { get; private set; }
     private PlayerMovementStateMachine movementStateMachine;
+    public EnvironmentScanner EnvironmentScanner { get; private set; }
 
     private void Awake()
     {
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         InputManager = GetComponent<InputManager>();
         Collision = GetComponent<PlayerCollision>();
+        EnvironmentScanner = GetComponent<EnvironmentScanner>();
         movementStateMachine = new PlayerMovementStateMachine(this);
     }
     private void Start()
