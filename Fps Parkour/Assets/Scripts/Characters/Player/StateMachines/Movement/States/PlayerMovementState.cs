@@ -110,13 +110,13 @@ public class PlayerMovementState : IState
         stateMachine.Player.ActSpeed = Mathf.Lerp(stateMachine.Player.ActSpeed, LaMT, d * Accel);
     }
 
-    private void TurnPlayer(float xAmt, float deltaTime, float turnSpeed)
+    protected void TurnPlayer(float xAmt, float deltaTime, float turnSpeed)
     {
         stateMachine.Player.Yturn += (xAmt * deltaTime)*turnSpeed;
         stateMachine.Player.transform.rotation = Quaternion.Euler(0, stateMachine.Player.Yturn, 0);
     }
 
-    private void MovePlayer(float hor, float ver, float deltaTime,float control)
+    protected void MovePlayer(float hor, float ver, float deltaTime,float control)
     {
         Vector3 MoveDir = (stateMachine.Player.transform.forward * ver) + (stateMachine.Player.transform.right * hor);
         MoveDir = MoveDir.normalized;

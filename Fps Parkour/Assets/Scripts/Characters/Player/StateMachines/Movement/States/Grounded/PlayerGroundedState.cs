@@ -17,6 +17,7 @@ public class PlayerGroundedState : PlayerMovementState
         stateMachine.Player.InputManager.JumpEvent += OnJump;
         control = 1;
         stateMachine.Player.InAirTimer = 0;
+        stateMachine.Player.ActWallRunTime = 0;
     }
     public override void Update(float deltaTime)
     {
@@ -65,5 +66,9 @@ public class PlayerGroundedState : PlayerMovementState
                 }
             }
         }
+    }
+    protected void OnCrouchPressed()
+    {
+        stateMachine.ChangeState(stateMachine.CrouchingState);
     }
 }

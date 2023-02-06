@@ -11,12 +11,14 @@ public class PlayerRunningState : PlayerGroundedState
     {
         base.Enter();
         stateMachine.Player.InputManager.MovingCanceled += OnMoveCancelled;
+        stateMachine.Player.InputManager.CrouchEvent += OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent += OnJump;
     }
     public override void Exit()
     {
         base.Exit();
         stateMachine.Player.InputManager.MovingCanceled -= OnMoveCancelled;
+        stateMachine.Player.InputManager.CrouchEvent -= OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent -= OnJump;
     }
 
@@ -24,4 +26,5 @@ public class PlayerRunningState : PlayerGroundedState
     {
         stateMachine.ChangeState(stateMachine.IdlingState);
     }
+   
 }

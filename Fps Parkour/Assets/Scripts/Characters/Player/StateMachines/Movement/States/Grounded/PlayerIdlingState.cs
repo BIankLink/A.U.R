@@ -13,8 +13,10 @@ public class PlayerIdlingState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        stateMachine.Player.TargetSpeed = 0f;
+        
+        stateMachine.Player.SlideTimer = 0f;
         stateMachine.Player.InputManager.JumpEvent += OnJump;
+        stateMachine.Player.InputManager.CrouchEvent += OnCrouchPressed;
     }
 
     public override void Update(float deltaTime)
@@ -27,9 +29,15 @@ public class PlayerIdlingState : PlayerGroundedState
         }
         OnMoved();
     }
+    public override void PhysicsUpdate(float deltaTime)
+    {
+        base.PhysicsUpdate(deltaTime);
+        //stateMachine.Player.TargetSpeed = 0f;
+    }
     public override void Exit()
     {
         base.Exit();
+        stateMachine.Player.InputManager.CrouchEvent -= OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent -= OnJump;
     }
 

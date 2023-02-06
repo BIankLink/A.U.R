@@ -18,11 +18,7 @@ public class PlayerAirborneState : PlayerMovementState
     public override void Update(float deltaTime)
     {
         base.Update(deltaTime);
-        stateMachine.Player.CheckG = stateMachine.Player.Collision.CheckFloor(-stateMachine.Player.transform.up);
-        if (stateMachine.Player.CheckG)
-        {
-            OnContactWithGround();
-        }
+        
     }
     public override void PhysicsUpdate(float deltaTime)
     {
@@ -39,5 +35,31 @@ public class PlayerAirborneState : PlayerMovementState
     protected override void OnContactWithGround()
     {
         stateMachine.ChangeState(stateMachine.LightLandingState);
+    }
+    protected void OnWallRun()
+    {
+        stateMachine.ChangeState(stateMachine.WallRunState);
+    }
+    protected bool CheckWall(float XM,float YM)
+    {
+        if (XM == 0 && YM == 0)
+        {
+            return false;
+        }
+
+        if (stateMachine.Player.ActWallRunTime > stateMachine.Player.WallRunTime)
+        {
+            return false;
+        }
+
+        Vector3 wallDirection = stateMachine.Player.transform.forward * YM + stateMachine.Player.transform.right * XM;
+        wallDirection = wallDirection.normalized;
+
+        bool wallCol = stateMachine.Player.Collision.CheckWalls(wallDirection);
+        return wallCol;
+    }
+    protected void InAir()
+    {
+        stateMachine.ChangeState(stateMachine.InAirState);
     }
 }

@@ -10,7 +10,7 @@ public class PlayerHardLandingState : PlayerLandingState
 
     public override void Enter()
     {
-        stateMachine.Player.TargetSpeed = 0f;
+        
         base.Enter();
         //StartAnimation(stateMachine.Player.AnimationData.HardLandParameterHash);
         stateMachine.Player.InputManager.input.actions.Disable();
@@ -19,7 +19,7 @@ public class PlayerHardLandingState : PlayerLandingState
     public override void PhysicsUpdate(float deltaTime)
     {
         base.PhysicsUpdate(deltaTime);
-
+        //stateMachine.Player.TargetSpeed = 0f;
         if (!IsMovingHorizontally())
         {
             return;

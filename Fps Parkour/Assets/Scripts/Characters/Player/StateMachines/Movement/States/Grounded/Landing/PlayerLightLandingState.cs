@@ -11,7 +11,7 @@ public class PlayerLightLandingState : PlayerLandingState
     #region IState Methods
     public override void Enter()
     {
-        stateMachine.Player.TargetSpeed = 0;
+        
         base.Enter();
        // ResetVelocity();
     }
@@ -28,7 +28,7 @@ public class PlayerLightLandingState : PlayerLandingState
     public override void PhysicsUpdate(float deltaTime)
     {
         base.PhysicsUpdate(deltaTime);
-
+        //stateMachine.Player.TargetSpeed = 0;
         if (!IsMovingHorizontally())
         {
             return;
