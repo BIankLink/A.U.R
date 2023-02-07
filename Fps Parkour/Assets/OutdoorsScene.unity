@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 651.1317, g: 980.23914, b: 1645.4028, a: 1}
+  m_IndirectSpecularColor: {r: 651.1395, g: 980.3036, b: 1645.4341, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1492,6 +1492,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2700428115681717247, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
         type: 3}
       propertyPath: WallRunUpwardsMovement
