@@ -10,15 +10,28 @@ public class PlayerVaultingState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        stateMachine.Player.StartCoroutine(Vaulting(action));
+        if (hitData.forwardHitFound)
+        {
+            Debug.Log("Exe1");
+            foreach (ParkourAction action in stateMachine.Player.ParkourActions)
+            {
+                Debug.Log("Exe");
+                if (action.CheckIfPossible(hitData, stateMachine.Player.transform))
+                {
+                   
+                    stateMachine.Player.StartCoroutine(Vaulting(action));
+                }
+            }
+        }
+        
     }
 
     protected IEnumerator Vaulting(ParkourAction action)
     {
         stateMachine.Player.InAction = true;
         stateMachine.Player.Rigidbody.useGravity = false;
-        stateMachine.Player.InputManager.input.actions.Disable();
         stateMachine.Player.Animator.CrossFade(action.AnimationName, 0.2f);
+        stateMachine.Player.InputManager.input.actions.Disable();
         yield return null;
         var animState = stateMachine.Player.Animator.GetNextAnimatorStateInfo(0);
         if (!animState.IsName(action.AnimationName))

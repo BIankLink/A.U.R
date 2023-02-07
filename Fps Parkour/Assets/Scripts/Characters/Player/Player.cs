@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     [SerializeField]public bool InAction { get; set; }
 
     public Rigidbody Rigidbody { get; private set; }
-    public Animator Animator { get; private set; }
+    [field:SerializeField]public Animator Animator { get; private set; }
     public InputManager InputManager { get; private set; }
     public PlayerCollision Collision { get; private set; }
     private PlayerMovementStateMachine movementStateMachine;

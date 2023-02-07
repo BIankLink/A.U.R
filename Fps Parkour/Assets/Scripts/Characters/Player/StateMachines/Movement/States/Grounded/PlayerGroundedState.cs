@@ -55,17 +55,7 @@ public class PlayerGroundedState : PlayerMovementState
     }
     protected void OnVaultPressed()
     {
-        if (hitData.forwardHitFound)
-        {
-            foreach (ParkourAction action in stateMachine.Player.ParkourActions)
-            {
-                if (action.CheckIfPossible(hitData, stateMachine.Player.transform))
-                {
-                    this.action = action;
-                    stateMachine.ChangeState(stateMachine.VaultingState);
-                }
-            }
-        }
+        stateMachine.ChangeState(stateMachine.VaultingState);
     }
     protected void OnCrouchPressed()
     {
