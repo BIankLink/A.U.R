@@ -23,8 +23,7 @@ public class PlayerAirborneState : PlayerMovementState
     public override void PhysicsUpdate(float deltaTime)
     {
         base.PhysicsUpdate(deltaTime);
-        if (stateMachine.Player.InAirTimer < 10f)
-            stateMachine.Player.InAirTimer += deltaTime;
+        
     }
     public override void Exit()
     {
@@ -56,6 +55,7 @@ public class PlayerAirborneState : PlayerMovementState
         wallDirection = wallDirection.normalized;
 
         bool wallCol = stateMachine.Player.Collision.CheckWalls(wallDirection);
+        //Debug.Log(wallCol);
         return wallCol;
     }
     protected void InAir()

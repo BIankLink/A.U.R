@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 651.89435, g: 981.1585, b: 1646.4468, a: 1}
+  m_IndirectSpecularColor: {r: 651.1317, g: 980.23914, b: 1645.4028, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1492,6 +1492,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: WallRunUpwardsMovement
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8364113293374665603, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1551,6 +1556,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364113293374665631, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: FloorCheckRadius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364113293478902558, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364113293478902559, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ef0581ddf8db6d4186c60d24f712b1c, type: 3}

@@ -13,8 +13,8 @@ public class PlayerGroundedState : PlayerMovementState
     {
         base.Enter();
         turnSpd = stateMachine.Player.TurnSpeed;
-        stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
-        stateMachine.Player.InputManager.JumpEvent += OnJump;
+        //stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
+        //stateMachine.Player.InputManager.JumpEvent += OnJump;
         control = 1;
         stateMachine.Player.InAirTimer = 0;
         stateMachine.Player.ActWallRunTime = 0;
@@ -42,8 +42,8 @@ public class PlayerGroundedState : PlayerMovementState
     public override void Exit()
     {
         base.Exit();
-        stateMachine.Player.InputManager.JumpEvent -= OnVaultPressed;
-        stateMachine.Player.InputManager.JumpEvent -= OnJump;
+        //stateMachine.Player.InputManager.JumpEvent -= OnVaultPressed;
+        //stateMachine.Player.InputManager.JumpEvent -= OnJump;
     }
     protected void OnMoved()
     {
@@ -53,7 +53,7 @@ public class PlayerGroundedState : PlayerMovementState
     {
         stateMachine.ChangeState(stateMachine.JumpState);
     }
-    void OnVaultPressed()
+    protected void OnVaultPressed()
     {
         if (hitData.forwardHitFound)
         {

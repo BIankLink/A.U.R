@@ -16,7 +16,7 @@ public class PlayerMovementState : IState
     #region IState
     public virtual void Enter()
     {
-        Debug.Log("State: " +GetType().Name);
+        //Debug.Log("State: " +GetType().Name);
     }
     public virtual void HandleInput()
     {

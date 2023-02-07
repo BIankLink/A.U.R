@@ -16,6 +16,7 @@ public class PlayerIdlingState : PlayerGroundedState
         
         stateMachine.Player.SlideTimer = 0f;
         stateMachine.Player.InputManager.JumpEvent += OnJump;
+        stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
         stateMachine.Player.InputManager.CrouchEvent += OnCrouchPressed;
     }
 
@@ -39,6 +40,7 @@ public class PlayerIdlingState : PlayerGroundedState
         base.Exit();
         stateMachine.Player.InputManager.CrouchEvent -= OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent -= OnJump;
+        stateMachine.Player.InputManager.JumpEvent -= OnVaultPressed;
     }
 
 }

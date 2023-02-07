@@ -54,7 +54,17 @@ public class PlayerCollision : MonoBehaviour
             return true;
         }
         return false;
-    } 
-    
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 pos = transform.position + (-transform.up * bottomOffset);
+        Gizmos.DrawWireSphere(pos, FloorCheckRadius);
+
+        Gizmos.color = Color.red;
+        pos = transform.position + (transform.forward * frontOffset);
+        Gizmos.DrawWireSphere(pos, WallCheckRadius);
+    }
 
 }

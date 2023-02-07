@@ -40,6 +40,8 @@ public class PlayerInAirState : PlayerAirborneState
     public override void PhysicsUpdate(float deltaTime)
     {
         base.PhysicsUpdate(deltaTime);
+        if (stateMachine.Player.InAirTimer < 10f)
+            stateMachine.Player.InAirTimer += deltaTime;
     }
     protected override void OnContactWithGround()
     {

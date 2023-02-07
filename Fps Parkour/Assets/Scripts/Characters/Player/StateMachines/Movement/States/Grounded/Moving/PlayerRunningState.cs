@@ -13,6 +13,7 @@ public class PlayerRunningState : PlayerGroundedState
         stateMachine.Player.InputManager.MovingCanceled += OnMoveCancelled;
         stateMachine.Player.InputManager.CrouchEvent += OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent += OnJump;
+        stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
     }
     public override void Exit()
     {
@@ -20,6 +21,7 @@ public class PlayerRunningState : PlayerGroundedState
         stateMachine.Player.InputManager.MovingCanceled -= OnMoveCancelled;
         stateMachine.Player.InputManager.CrouchEvent -= OnCrouchPressed;
         stateMachine.Player.InputManager.JumpEvent -= OnJump;
+        stateMachine.Player.InputManager.JumpEvent -= OnVaultPressed;
     }
 
     protected void OnMoveCancelled()

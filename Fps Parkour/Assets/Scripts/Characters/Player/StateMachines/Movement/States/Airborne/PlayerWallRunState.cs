@@ -45,6 +45,7 @@ public class PlayerWallRunState : PlayerAirborneState
         moveDir += stateMachine.Player.transform.forward * stateMachine.Player.ActSpeed;
 
         Vector3 lerpAmt = Vector3.Lerp(stateMachine.Player.Rigidbody.velocity, moveDir, stateMachine.Player.WallRunSpeedAcceleration * deltaTime);
+        Debug.Log(lerpAmt);
         stateMachine.Player.Rigidbody.velocity = lerpAmt;
     }
 }
