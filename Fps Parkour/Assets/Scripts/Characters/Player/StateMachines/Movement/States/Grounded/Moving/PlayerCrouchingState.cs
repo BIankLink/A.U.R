@@ -13,10 +13,7 @@ public class PlayerCrouchingState : PlayerGroundedState
         stateMachine.Player.CapsuleCollider.height = stateMachine.Player.crouchHeight;
         
         stateMachine.Player.InputManager.CrouchEvent += OnCrouchCancel;
-        if(stateMachine.Player.ActSpeed> stateMachine.Player.SlideSpeedLimit)
-        {
-             stateMachine.ChangeState(stateMachine.SlidingState);
-        }
+        
     }
     public override void PhysicsUpdate(float deltaTime)
     {

@@ -11,6 +11,7 @@ public class PlayerLandingState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.ChangeState(stateMachine.IdlingState);
         //Start AnimationHash
     }
     public override void Exit()

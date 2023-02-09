@@ -27,11 +27,13 @@ public class ParkourAction : ScriptableObject
     {
         if(!string.IsNullOrEmpty(obstacleTag)&& hitData.forwardHit.transform.tag != obstacleTag)
         {
+            Debug.Log("one");
             return false;
         }
         float height= hitData.heightHit.point.y - player.position.y;
         if(height < minHeight|| height> maxHeight)
         {
+            Debug.Log("Two");
             return false;
         }
         if (RotateToObstacle)

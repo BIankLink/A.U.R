@@ -7,7 +7,11 @@ public class PlayerWallRunState : PlayerAirborneState
     public PlayerWallRunState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
     {
     }
-
+    public override void Enter()
+    {
+        base.Enter();
+        stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
+    }
     public override void Update(float deltaTime)
     {
         base.Update(deltaTime);
@@ -35,6 +39,11 @@ public class PlayerWallRunState : PlayerAirborneState
         //move our player when on a wall
         WallMove(movementInput.y, deltaTime);
     }
+    public override void Exit()
+    {
+        base.Exit();
+        stateMachine.Player.InputManager.JumpEvent -= OnVaultPressed;
+    }
     protected void WallMove(float verInput,float deltaTime)
     {
         //get direction to move in
@@ -45,7 +54,7 @@ public class PlayerWallRunState : PlayerAirborneState
         moveDir += stateMachine.Player.transform.forward * stateMachine.Player.ActSpeed;
 
         Vector3 lerpAmt = Vector3.Lerp(stateMachine.Player.Rigidbody.velocity, moveDir, stateMachine.Player.WallRunSpeedAcceleration * deltaTime);
-        Debug.Log(lerpAmt);
+        //Debug.Log(lerpAmt);
         stateMachine.Player.Rigidbody.velocity = lerpAmt;
     }
 }

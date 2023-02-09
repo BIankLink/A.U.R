@@ -9,6 +9,8 @@ public class PlayerMovementState : IState
     protected Vector2 movementInput;
     protected float control;
     protected float turnSpd;
+    protected float inputMag;
+    protected Vector3 ledgePos;
     public PlayerMovementState(PlayerMovementStateMachine playerMovementStateMachine)
     {
         stateMachine = playerMovementStateMachine;
@@ -70,22 +72,16 @@ public class PlayerMovementState : IState
     {
         
         //Vector3 movementDirection = GetMovementInputDirection();
-        float inputMag = new Vector2(movementInput.x, movementInput.y).normalized.magnitude;
-        stateMachine.Player.TargetSpeed = Mathf.Lerp(stateMachine.Player.BackwardsMovementSpeed, stateMachine.Player.MaxSpeed, movementInput.y);
+        inputMag = new Vector2(movementInput.x, movementInput.y).normalized.magnitude;
+      
+        HandleFov(deltaTime);
 
-        LerpSpeed(inputMag, deltaTime, stateMachine.Player.TargetSpeed);
+
 
         MovePlayer(movementInput.x, movementInput.y, deltaTime,control);
         TurnPlayer(stateMachine.Player.InputManager.look.x, deltaTime, turnSpd);
 
-        if (stateMachine.Player.AdjustmentAmt < 1)
-        {
-            stateMachine.Player.AdjustmentAmt += deltaTime * stateMachine.Player.PlayerCtrl;
-        }
-        else
-        {
-            stateMachine.Player.AdjustmentAmt = 1;
-        }
+       
     }
     protected virtual void OnContactWithGround()
     {
@@ -98,9 +94,10 @@ public class PlayerMovementState : IState
     {
         return new Vector3(movementInput.x, 0f, movementInput.y);
     }
-    void LerpSpeed(float magnitude,float d,float spd)
+    protected void LerpSpeed(float magnitude,float d,float spd)
     {
         float LaMT = spd * magnitude;
+        
         float Accel = stateMachine.Player.Acceleration;
         if (magnitude == 0)
         {
@@ -112,7 +109,7 @@ public class PlayerMovementState : IState
 
     protected void TurnPlayer(float xAmt, float deltaTime, float turnSpeed)
     {
-        stateMachine.Player.Yturn += (xAmt * deltaTime)*turnSpeed;
+        stateMachine.Player.Yturn += (xAmt * deltaTime) * turnSpeed * stateMachine.Player.Sensitivity;
         stateMachine.Player.transform.rotation = Quaternion.Euler(0, stateMachine.Player.Yturn, 0);
     }
 
@@ -165,6 +162,46 @@ public class PlayerMovementState : IState
         Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
 
         stateMachine.Player.Rigidbody.velocity = playerHorizontalVelocity;
+    }
+    protected void SetSpeedToVelocity()
+    {
+        float Mag = new Vector2(stateMachine.Player.Rigidbody.velocity.x, stateMachine.Player.Rigidbody.velocity.z).magnitude;
+        stateMachine.Player.ActSpeed = Mag;
+    }
+    void HandleFov(float D)
+    {
+        //get our velocity magniture
+        float mag = new Vector2(stateMachine.Player.Rigidbody.velocity.x, stateMachine.Player.Rigidbody.velocity.z).magnitude;
+        //get appropritate fov 
+        float LerpAmt = mag / stateMachine.Player.FOVSpeed;
+        float FieldView = Mathf.Lerp(stateMachine.Player.MinFov, stateMachine.Player.MaxFov, LerpAmt);
+        //ease into this fov
+        stateMachine.Player.Head.fieldOfView = Mathf.Lerp(stateMachine.Player.Head.fieldOfView, FieldView, 4 * D);
+    }
+    protected void OnVaultPressed()
+    {
+
+        ledgePos = stateMachine.Player.Collision.CheckLedges();
+        Debug.Log(ledgePos);
+        if (ledgePos != Vector3.zero)
+        {
+            LedgeGrab(ledgePos);
+            stateMachine.ChangeState(stateMachine.VaultingState);
+        }
+        else return;
+    }
+    protected void LedgeGrab(Vector3 Ledge)
+    {
+        //set our ledge position
+        stateMachine.Player.LedgePos = Ledge;
+        stateMachine.Player.OrigPos = stateMachine.Player.transform.position;
+        //reset ledge grab time
+        stateMachine.Player.ActPullTm = 0;
+        //remove speed and velocity
+        stateMachine.Player.Rigidbody.velocity = Vector3.zero;
+        stateMachine.Player.ActSpeed = 0;
+        
+       
     }
     #endregion
 }

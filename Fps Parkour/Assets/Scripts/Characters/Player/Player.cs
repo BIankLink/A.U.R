@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
     public float TurnSpeed;
     public float TurnSpeedOnAir;
     public float TurnSpeedOnWalls;
-
+    [Range(0,1)]
+    public float Sensitivity;
     public float LookUpSpeed;
     public Camera Head;
 
@@ -69,8 +70,19 @@ public class Player : MonoBehaviour
     [field:Header("Landing")]
     [field:SerializeField]public float MinimumDistanceToBeConsideredHardFall { get;private set; }
 
-    [field:Header("Parkour Actions")]
-    [field:SerializeField]public List<ParkourAction> ParkourActions { get; private set; }
+    [Header("FOV")]
+    public float MaxFov;
+    public float MinFov { get; set; }
+    public float FOVSpeed;
+
+    [Header("WallGrabbing")]
+    public float PullUpTime; //the time it takes to pull onto a ledge
+    public float ActPullTm { get; set; } //the actual time it takes to pull up a ledge
+    public Vector3 OrigPos { get; set; } //the original Position before grabbing a ledge
+    public Vector3 LedgePos { get; set; } //the ledge position to move to
+
+    //[field:Header("Parkour Actions")]
+    //[field:SerializeField]public List<ParkourAction> ParkourActions { get; private set; }
     [SerializeField]public bool InAction { get; set; }
 
     public Rigidbody Rigidbody { get; private set; }
@@ -79,10 +91,10 @@ public class Player : MonoBehaviour
     public PlayerCollision Collision { get; private set; }
     private PlayerMovementStateMachine movementStateMachine;
     public EnvironmentScanner EnvironmentScanner { get; private set; }
-
+    public ObstacleHitData hitData { get; set; }
     private void Awake()
     {
-        
+        Cursor.visible = false;
         Rigidbody = GetComponent<Rigidbody>();
         InputManager = GetComponent<InputManager>();
         CapsuleCollider = GetComponent<CapsuleCollider>();
@@ -94,6 +106,7 @@ public class Player : MonoBehaviour
     {
         StandingHeight = CapsuleCollider.height;
         AdjustmentAmt = 1;
+        MinFov = Head.fieldOfView;
         movementStateMachine.ChangeState(movementStateMachine.IdlingState);
     }
     private void Update()
@@ -108,7 +121,7 @@ public class Player : MonoBehaviour
     }
     void LookUpDown(float yAmt,float deltaTime)
     {
-        Xturn -= (yAmt * deltaTime) * LookUpSpeed;
+        Xturn -= (yAmt * deltaTime) * LookUpSpeed * Sensitivity;
         Xturn = Mathf.Clamp(Xturn, MinLookAngle, MaxLookAngle);
         Head.transform.localRotation = Quaternion.Euler(Xturn,0,0);
     }

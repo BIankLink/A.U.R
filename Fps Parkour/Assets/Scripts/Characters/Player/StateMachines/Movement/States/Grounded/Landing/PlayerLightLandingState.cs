@@ -13,7 +13,8 @@ public class PlayerLightLandingState : PlayerLandingState
     {
         
         base.Enter();
-       // ResetVelocity();
+        // ResetVelocity();
+        stateMachine.ChangeState(stateMachine.IdlingState);
     }
     public override void Update(float deltaTime)
     {

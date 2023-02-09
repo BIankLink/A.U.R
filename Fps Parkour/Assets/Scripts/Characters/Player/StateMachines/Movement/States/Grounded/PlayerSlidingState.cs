@@ -11,7 +11,7 @@ public class PlayerSlidingState : PlayerGroundedState
     {
         base.Enter();
         stateMachine.Player.CapsuleCollider.height = stateMachine.Player.crouchHeight;
-        SlideForwards();
+        
     }
     public override void Update(float deltaTime)
     {
@@ -22,12 +22,18 @@ public class PlayerSlidingState : PlayerGroundedState
             stateMachine.ChangeState(stateMachine.CrouchingState);
         }
     }
-    void SlideForwards()
+    public override void PhysicsUpdate(float deltaTime)
+    {
+        SlideForwards(deltaTime);
+
+    }
+    void SlideForwards(float deltaTime)
     {
         stateMachine.Player.ActSpeed = stateMachine.Player.SlideSpeedLimit;
         stateMachine.Player.AdjustmentAmt = 0;
         Vector3 Dir = stateMachine.Player.Rigidbody.velocity.normalized;
         Dir.y = 0;
-        stateMachine.Player.Rigidbody.AddForce(Dir * stateMachine.Player.SlideAmt, ForceMode.Impulse);
+        stateMachine.Player.Rigidbody.AddForce(Dir * stateMachine.Player.SlideAmt*deltaTime, ForceMode.Impulse);
+        
     }
 }

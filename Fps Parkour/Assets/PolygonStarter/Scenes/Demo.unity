@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20756,6 +20756,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2d9674097da42b2448220c5e2805bb27, type: 2}
+    - target: {fileID: 135115458227926190, guid: d6e2601c4f144db459adb4f5e7affc65,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135259066365143554, guid: d6e2601c4f144db459adb4f5e7affc65,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135585611884400046, guid: d6e2601c4f144db459adb4f5e7affc65,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135918761070855524, guid: d6e2601c4f144db459adb4f5e7affc65,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e2601c4f144db459adb4f5e7affc65, type: 3}
 --- !u!4 &1813566686 stripped
@@ -20773,6 +20793,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
         type: 3}
+      propertyPath: MaxSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
       propertyPath: Decceleration
       value: 10
       objectReference: {fileID: 0}
@@ -20781,6 +20806,11 @@ PrefabInstance:
       propertyPath: <Animator>k__BackingField
       value: 
       objectReference: {fileID: 652433685}
+    - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
+        type: 3}
+      propertyPath: <TargetSpeed>k__BackingField
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8364113293374665602, guid: 2ef0581ddf8db6d4186c60d24f712b1c,
         type: 3}
       propertyPath: <ParkourActions>k__BackingField.Array.size

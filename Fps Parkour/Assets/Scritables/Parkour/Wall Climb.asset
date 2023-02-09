@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Sprint To Wall Climb
   obstacleTag: 
-  minHeight: 0
-  maxHeight: 0
-  <RotateToObstacle>k__BackingField: 0
+  minHeight: 1.5
+  maxHeight: 3
+  <RotateToObstacle>k__BackingField: 1
   postActionDelay: 0
   enableTargetMatching: 1
-  matchBodyPart: 0
-  matchStartTime: 0
-  matchTargetTime: 0
-  matchPositionWeight: {x: 0, y: 1, z: 0}
+  matchBodyPart: 5
+  matchStartTime: 0.12
+  matchTargetTime: 0.27
+  matchPositionWeight: {x: 0, y: 1, z: 1}

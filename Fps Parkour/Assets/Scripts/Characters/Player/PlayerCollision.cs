@@ -11,20 +11,20 @@ public class PlayerCollision : MonoBehaviour
     public float RoofCheckRadius; //the amount we check before standing up 
     public float upOffset; //offset upwards
 
-    //public float LedgeGrabForwardPos; //the position in front of the player where we check for ledges
-    //public float LedgeGrabUpwardsPos;//the position in above of the player where we check for ledges
-    //public float LedgeGrabDistance; //the distance the ledge can be from our raycast before we grab it (this is projects from the top of the wall grab position, downwards
+    public float LedgeGrabForwardPos; //the position in front of the player where we check for ledges
+    public float LedgeGrabUpwardsPos;//the position in above of the player where we check for ledges
+    public float LedgeGrabDistance; //the distance the ledge can be from our raycast before we grab it (this is projects from the top of the wall grab position, downwards
 
     public LayerMask FloorLayers; //what layers we can stand on
     public LayerMask WallLayers;  //what layers we can wall run on
     public LayerMask RoofLayers; //what layers we cannot stand up under (for crouching
-    //public LayerMask LedgeGrabLayers; //what layers we will grab onto
-
+    public LayerMask LedgeGrabLayers; //what layers we will grab onto
+    
     public bool CheckFloor(Vector3 Dir)
     {
         Vector3 pos = transform.position + (Dir * bottomOffset);
-        Collider[] colHit= Physics.OverlapSphere(pos,FloorCheckRadius,FloorLayers);
-        if(colHit.Length > 0)
+        
+        if(Physics.CheckSphere(pos,FloorCheckRadius,FloorLayers))
         {
             // there is ground below us
             return true;
@@ -36,8 +36,8 @@ public class PlayerCollision : MonoBehaviour
     public bool CheckWalls(Vector3 Dir)
     {
         Vector3 pos = transform.position + (Dir * frontOffset);
-        Collider[] colHit = Physics.OverlapSphere(pos, WallCheckRadius, WallLayers);
-        if (colHit.Length > 0)
+       
+        if (Physics.CheckSphere(pos, WallCheckRadius, WallLayers))
         {
             // there is ground below us
             return true;
@@ -47,15 +47,25 @@ public class PlayerCollision : MonoBehaviour
     public bool CheckRoof(Vector3 Dir)
     {
         Vector3 pos = transform.position + (Dir * upOffset);
-        Collider[] colHit = Physics.OverlapSphere(pos, RoofCheckRadius, RoofLayers);
-        if (colHit.Length > 0)
+        
+        if (Physics.CheckSphere(pos, RoofCheckRadius, RoofLayers))
         {
             // there is ground below us
             return true;
         }
         return false;
     }
+    public Vector3 CheckLedges()
+    {
+        Vector3 RayPos = transform.position + (transform.forward * LedgeGrabForwardPos) + (transform.up * LedgeGrabUpwardsPos);
 
+        RaycastHit hit;
+        if (Physics.Raycast(RayPos, -transform.up, out hit, LedgeGrabDistance, LedgeGrabLayers))
+            return hit.point;
+
+
+        return Vector3.zero;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -65,6 +75,16 @@ public class PlayerCollision : MonoBehaviour
         Gizmos.color = Color.red;
         pos = transform.position + (transform.forward * frontOffset);
         Gizmos.DrawWireSphere(pos, WallCheckRadius);
+
+        //roof check
+        Gizmos.color = Color.green;
+        Vector3 Pos3 = transform.position + (transform.up * upOffset);
+        Gizmos.DrawSphere(Pos3, RoofCheckRadius);
+
+        //Ledge check
+        Gizmos.color = Color.black;
+        Vector3 Pos4 = transform.position + (transform.forward * LedgeGrabForwardPos) + (transform.up * LedgeGrabUpwardsPos);
+        Gizmos.DrawLine(Pos4, Pos4 + (-transform.up * LedgeGrabDistance));
     }
 
 }

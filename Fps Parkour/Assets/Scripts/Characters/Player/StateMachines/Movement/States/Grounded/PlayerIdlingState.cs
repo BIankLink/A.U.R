@@ -15,15 +15,15 @@ public class PlayerIdlingState : PlayerGroundedState
         base.Enter();
         
         stateMachine.Player.SlideTimer = 0f;
-        stateMachine.Player.InputManager.JumpEvent += OnJump;
         stateMachine.Player.InputManager.JumpEvent += OnVaultPressed;
+        stateMachine.Player.InputManager.JumpEvent += OnJump;
         stateMachine.Player.InputManager.CrouchEvent += OnCrouchPressed;
     }
 
     public override void Update(float deltaTime)
     {
         base.Update(deltaTime);
-
+        //stateMachine.Player.Animator.SetFloat("moveAmount", Mathf.Abs(movementInput.y));
         if(movementInput == Vector2.zero)
         {
             return;
